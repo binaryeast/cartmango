@@ -32,7 +32,7 @@ django version: 1.10.1
 물품 아이디는 `Math.floor(Date.now() / 1000)` 로 타임스탬프 찍는다.
 ```json
 {
-  "username": "foo"
+  "username": "foo",
   "product_list": [
      {
       "url": "http://www.gsshop.com/prd/prd.gs?prdid=24926497",
