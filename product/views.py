@@ -14,10 +14,10 @@ from .models import Product, PersonalProduct
 
 
 class ProductFilter(django_filters.FilterSet):
-    query = django_filters.MethodFilter()
-    order = django_filters.MethodFilter()
-    list = django_filters.MethodFilter()
-    mall = django_filters.MethodFilter()
+    query = django_filters.CharFilter(method='filter_query')
+    order = django_filters.CharFilter(method='filter_order')
+    list = django_filters.CharFilter(method='filter_list')
+    # mall = django_filters.CharFilter(method='')
 
     class Meta:
         model = Product

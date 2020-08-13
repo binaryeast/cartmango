@@ -1,12 +1,11 @@
-from django.conf.urls import url
+from django.urls import include, path
 from .views import signup
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url(r'^signup/$', signup, name='signup'),
-    url(r'^signup_ok/$', TemplateView.as_view(template_name='signup_ok.html'), name='signup_ok'),
-    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
-    # url(r'^login/$', 'django.contrib.auth.views.login', name='login_url'),
-    url(r'^logout/$', auth_views.logout, {'next_page': '/login/'}, name='logout'),
+    path('signup/', signup, name='signup'),
+    path('signup_ok/', TemplateView.as_view(template_name='signup_ok.html'), name='signup_ok'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

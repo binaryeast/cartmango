@@ -1,4 +1,4 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 from django.utils import timezone
 from django.conf import settings
 from django.db import models
@@ -16,7 +16,8 @@ class Product(TimeStampedModel):
         ordering = ["-updated"]
 
     mall = models.ForeignKey('Mall', verbose_name=u'쇼핑몰',
-                             related_name='mall_product')
+                             related_name='mall_product',
+                             on_delete=models.CASCADE)
     name = models.CharField(u'상품명', max_length=200)
     url = models.CharField(u'링크', max_length=300)
     price = models.PositiveIntegerField(u'가격', default=0, null=True, blank=True)
@@ -48,9 +49,11 @@ class PersonalProduct(TimeStampedModel):
         ordering = ["-created"]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'사용자',
-                             related_name='my_product')
+                             related_name='my_product',
+                             on_delete=models.CASCADE)
     product = models.ForeignKey('Product', verbose_name=u'제품',
-                                related_name='personal_product')
+                                related_name='personal_product',
+                                on_delete=models.CASCADE)
     tags = TaggableManager()
     created = models.DateTimeField(u'생성일', default=timezone.now)
     modified = models.DateTimeField(u'수정일', blank=True, null=True)
@@ -90,7 +93,8 @@ class Mall(TimeStampedModel):
 class List(TimeStampedModel):
     name = models.CharField(u'리스트 이름', unique=True, max_length=200)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'사용자',
-                             related_name='my_list')
+                             related_name='my_list',
+                             on_delete=models.CASCADE)
     product = models.ManyToManyField(PersonalProduct, verbose_name=u'리스트 제품', blank=True)
 
     def __str__(self):

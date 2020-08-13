@@ -73,3 +73,5 @@ secrets.json
 # etc
 *.zip
 *.png
+
+.vscode
